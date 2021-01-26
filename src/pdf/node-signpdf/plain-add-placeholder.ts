@@ -33,7 +33,7 @@ const plainAddPlaceholder = async (
   }
 
   const imageReference = await appendImage(pdfAppender, signatureOptions)
-  const signatureReference = appendSignature(pdfAppender, signatureOptions, signatureLength)
+  const signatureReference = appendSignature(pdfAppender, signatureLength)
   const helveticaFontReference = appendFont(pdfAppender, 'Helvetica')
   const zapfDingbatsFontReference = appendFont(pdfAppender, 'ZapfDingbats')
 

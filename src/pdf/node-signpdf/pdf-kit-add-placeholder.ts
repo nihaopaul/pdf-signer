@@ -108,15 +108,12 @@ export const appendWidget = (
 
 export const appendSignature = (
   pdf: PdfCreator,
-  signatureOptions: SignatureOptions,
   signatureLength = DEFAULT_SIGNATURE_LENGTH,
   byteRangePlaceholder = DEFAULT_BYTE_RANGE_PLACEHOLDER,
 ) => {
   const signatureObject = getSignature(
     byteRangePlaceholder,
-    signatureLength,
-    signatureOptions.reason,
-    signatureOptions,
+    signatureLength
   )
   const signatureReference = pdf.append(signatureObject)
 
@@ -256,8 +253,6 @@ const getFont = (baseFont: string) => {
 const getSignature = (
   byteRangePlaceholder: string,
   signatureLength: number,
-  reason: string,
-  signatureDetails: SignatureOptions,
 ) => {
   return {
     Type: 'Sig',
@@ -265,11 +260,7 @@ const getSignature = (
     SubFilter: 'adbe.pkcs7.detached',
     ByteRange: [0, byteRangePlaceholder, byteRangePlaceholder, byteRangePlaceholder],
     Contents: Buffer.from(String.fromCharCode(0).repeat(signatureLength)),
-    Reason: new String(reason),
-    M: new Date(),
-    ContactInfo: new String(`${signatureDetails.email}`),
-    Name: new String(`${signatureDetails.signerName}`),
-    Location: new String(`${signatureDetails.location}`),
+    M: new Date()
   }
 }
 
